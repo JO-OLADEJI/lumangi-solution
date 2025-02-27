@@ -42,7 +42,7 @@ To get started with Crafting Kingdoms:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/TechVantageOrg/craft-kingdoms.git
+   git clone https://github.com/TechVantageOrg/crafts-kingdom.git
    ```
 2. Install dependencies:
 
