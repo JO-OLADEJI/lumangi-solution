@@ -14,8 +14,6 @@ import { getUser } from "./api/auth/[...thirdweb]";
 import { LORD_CONTRACT_ADDRESS } from "../constants/contracts";
 import LoadingAnimation from "../components/LoadingAnimator";
 
-const logingOptional = false;
-
 const Login = () => {
   const showConnectedEmbed = useShowConnectEmbed();
   const { isLoggedIn, isLoading } = useUser();
@@ -27,6 +25,7 @@ const Login = () => {
   const [loadingMessage, setLoadingMessage] = useState("");
 
   const checkNewPlayer = async () => {
+    console.log({ address });
     try {
       if (wallet instanceof SmartWallet && address && sdk) {
         setLoadingLordStatus(true);
@@ -63,8 +62,10 @@ const Login = () => {
           setLoadingMessage("");
           router.push("/");
         }
+      } else if (address) {
+        router.push("/");
       } else {
-        alert("Wallet is not an Smart Wallet");
+        alert("Error connecting wallet");
       }
     } catch (error) {
       console.log(error);
@@ -72,10 +73,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn && !isLoading) {
+    if (address && isLoggedIn && !isLoading) {
       checkNewPlayer();
     }
-  }, [isLoggedIn, isLoading, router]);
+  }, [isLoggedIn, isLoading, address]);
 
   if (loadingLordStatus) {
     return (
@@ -95,8 +96,9 @@ const Login = () => {
       {showConnectedEmbed && (
         <ConnectEmbed
           auth={{
-            loginOptional: logingOptional,
+            loginOptional: false,
           }}
+          showThirdwebBranding={false}
         />
       )}
     </div>

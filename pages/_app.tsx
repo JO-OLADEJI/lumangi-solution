@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import {
   embeddedWallet,
+  metamaskWallet,
   smartWallet,
   ThirdwebProvider,
 } from "@thirdweb-dev/react";
@@ -16,12 +17,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThirdwebProvider
       clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
       activeChain={Sepolia}
-      supportedWallets={[
-        smartWallet(embeddedWallet(), {
-          factoryAddress: getEnvironment().FACTORY_ADDRESS,
-          gasless: true,
-        }),
-      ]}
+      // supportedWallets={[
+      //   // smartWallet(embeddedWallet(), {
+      //   //   factoryAddress: getEnvironment().FACTORY_ADDRESS,
+      //   //   gasless: true,
+      //   // }),
+      //   metamaskWallet(),
+      // ]}
       authConfig={{
         domain: getEnvironment().DOMAIN,
         authUrl: "/api/auth",
